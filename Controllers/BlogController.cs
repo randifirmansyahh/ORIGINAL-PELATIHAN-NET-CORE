@@ -17,6 +17,12 @@ namespace go_blogs.Controllers
             _context = context;
         }
 
+        public IActionResult Index()
+        {
+            var data = _context.Tb_Blog.ToList();
+            return View(data);
+        }
+
         public IActionResult Create()
         {
             return View();
@@ -32,11 +38,11 @@ namespace go_blogs.Controllers
                 _context.Add(parameter);
                 await _context.SaveChangesAsync();
 
-                // asalnya url https://localhost:5001/Blog/Create
-                // menjadi  https://localhost:5001/Home
-                return Redirect("../Home");
+                return RedirectToAction("Index");
             }
             return View(parameter);
         }
+
+
     }
 }
