@@ -1,5 +1,6 @@
 ﻿using go_blogs.Data;
 using go_blogs.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace go_blogs.Controllers
 {
+    [Authorize]
     public class BlogController : Controller
     {
         private readonly AppDbContext _context;

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using go_blogs.Helper
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -30,7 +32,25 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Blog" asp-action="Index">Blog</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Akun" asp-action="Daftar">Daftar</a>
+                        </li>
                     </ul>
+                </div>
+                <div>
+                    @{
+                        string cek = User.GetUsername();
+                        if (cek != "")
+                        {
+                            <b>@User.GetUsername()</b>
+
+                            <a href="@Url.Action("Logout","Akun")"
+                               style="color:red"
+                               onclick="if (!confirm('Yakin untuk keluar')) { return false;}">
+                                Keluar
+                            </a>
+                        }
+                    }
                 </div>
             </div>
         </nav>

@@ -1,0 +1,20 @@
+﻿@model User;
+
+@{ 
+    Layout = "_LayoutAkun";
+}
+
+<p>Silahkan daftar</p>
+
+<form asp-action="Daftar">
+    
+    <input asp-for="Username" placeholder="Username"/>
+    <input asp-for="Password" placeholder="Password" />
+    <input asp-for="Name" placeholder="Nama Lengkap"/>
+    <input asp-for="Email" placeholder="Email"/>
+
+    <input type="submit" value="Daftar Sekarang"/>
+
+</form>
+
+<a asp-action="Masuk">Saya sudah punya akun woi</a>

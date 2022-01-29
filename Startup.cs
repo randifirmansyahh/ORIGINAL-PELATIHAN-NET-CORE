@@ -30,6 +30,13 @@ namespace go_blogs
                 o.UseMySQL(Configuration.GetConnectionString("mysql")); //sesuaikan namanya
             });
 
+            services.AddAuthentication("CookieAuth")
+                .AddCookie("CookieAuth", options =>
+                {
+                    options.LoginPath = "/Akun/Masuk";
+                }
+             );
+
             services.AddControllersWithViews();
         }
 
@@ -50,6 +57,8 @@ namespace go_blogs
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

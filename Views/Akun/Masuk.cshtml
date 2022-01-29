@@ -1,0 +1,25 @@
+﻿@model User;
+
+@{
+    Layout = "_LayoutAkun";
+}
+
+    @{
+        if (!string.IsNullOrEmpty(ViewBag.pesan))
+        {
+            <script>
+                alert("@ViewBag.pesan");
+            </script>
+        }
+    }
+
+<p>Silahkan Masuk</p>
+
+<form asp-action="Masuk">
+    <input asp-for="Username" />
+    <input asp-for="Password" />
+
+    <input type="submit" value="Masuk" />
+</form>
+
+<a asp-action="Daftar">Wei saya belum punya akun</a>
