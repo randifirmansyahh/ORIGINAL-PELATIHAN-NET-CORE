@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using go_blogs.Helper;
 
 namespace go_blogs.Controllers
 {
@@ -21,8 +23,13 @@ namespace go_blogs.Controllers
 
         public IActionResult Index()
         {
-            var data = _context.Tb_Blog.ToList();
-            return View(data);
+            var banyakData = new BlogDashBoard();
+
+            banyakData.blog = _context.Tb_Blog.Include(x => x.User).ToList();
+      
+            banyakData.user = _context.Tb_User.Include(x => x.Roles).ToList();
+
+            return View(banyakData);
         }
 
         public IActionResult Create()
@@ -36,7 +43,12 @@ namespace go_blogs.Controllers
             if (ModelState.IsValid)
             {
                 //proses masukan ke database
-                parameter.Id = parameter.CreateDate.Ticks.ToString("x"); // membuat id unix
+                parameter.Id = BuatPrimary.buatPrimary(); // ini dari helper
+
+                string nama = User.GetUsername();
+
+                parameter.User = _context.Tb_User.FirstOrDefault(x => x.Username == nama);
+
                 _context.Add(parameter);
                 await _context.SaveChangesAsync();
 
@@ -45,6 +57,19 @@ namespace go_blogs.Controllers
             return View(parameter);
         }
 
+        public async Task<IActionResult> Hapus(string id)
+        {
+            var cari = _context.Tb_Blog.Where(x => x.Id == id).FirstOrDefault();
 
+            if (cari == null)
+            {
+                return NotFound();
+            }
+
+            _context.Tb_Blog.Remove(cari);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
     }
 }

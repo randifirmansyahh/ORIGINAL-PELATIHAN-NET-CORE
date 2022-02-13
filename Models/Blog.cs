@@ -27,4 +27,16 @@ namespace go_blogs.Models
         public bool Status { get; set; }
         public User User { get; set; }
     }
+
+    public class BlogDashBoard
+    {
+        public List<Blog> blog { get; set; }
+        public List<User> user { get; set; }
+
+        public BlogDashBoard()
+        {
+            blog = new List<Blog>();
+            user = new List<User>();
+        }
+    }
 }
