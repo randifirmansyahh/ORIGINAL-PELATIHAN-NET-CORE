@@ -20,7 +20,6 @@ namespace go_blogs.Models
         [DisplayName("Isinya")]
         public string Content { get; set; }
 
-        [Required]
         [DisplayName("Tanggal Pembuatan")]
         public DateTime CreateDate { get; set; }
 

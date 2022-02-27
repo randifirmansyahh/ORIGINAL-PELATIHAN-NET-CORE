@@ -8,26 +8,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using go_blogs.Helper;
+using go_blogs.Services;
 
 namespace go_blogs.Controllers
 {
     [Authorize]
     public class BlogController : Controller
     {
-        private readonly AppDbContext _context;
-
-        public BlogController(AppDbContext context)
+        private readonly IService _service;
+        public BlogController(IService s)
         {
-            _context = context;
+            _service = s;
         }
 
         public IActionResult Index()
         {
-            var banyakData = new BlogDashBoard();
+            var banyakData = new BlogDashBoard(); // membuat kumpulan model
 
-            banyakData.blog = _context.Tb_Blog.Include(x => x.User).ToList();
-      
-            banyakData.user = _context.Tb_User.Include(x => x.Roles).ToList();
+            banyakData.blog = _service.TampilSemuaData(); // semua blog
+            banyakData.user = _service.TampilSemuaUser(); // semua user
 
             return View(banyakData);
         }
@@ -38,38 +37,43 @@ namespace go_blogs.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Blog parameter)
+        public IActionResult Create(Blog parameter)
         {
             if (ModelState.IsValid)
             {
-                //proses masukan ke database
-                parameter.Id = BuatPrimary.buatPrimary(); // ini dari helper
-
-                string nama = User.GetUsername();
-
-                parameter.User = _context.Tb_User.FirstOrDefault(x => x.Username == nama);
-
-                _context.Add(parameter);
-                await _context.SaveChangesAsync();
-
+                _service.BuatBlog(parameter, User.GetUsername()); // dari helper, tanpa tampungan
                 return RedirectToAction("Index");
             }
-            return View(parameter);
+            return View(parameter); // ini kondisi else
         }
 
-        public async Task<IActionResult> Hapus(string id)
+        public IActionResult Hapus(string id)
         {
-            var cari = _context.Tb_Blog.Where(x => x.Id == id).FirstOrDefault();
-
-            if (cari == null)
-            {
-                return NotFound();
-            }
-
-            _context.Tb_Blog.Remove(cari);
-            await _context.SaveChangesAsync();
-
+            _service.HapusBlog(id);
             return RedirectToAction("Index");
+        }
+
+        public IActionResult Ubah(string id)
+        {
+            var cari = _service.TampilBlogById(id);
+            return cari == null ? NotFound() : View(cari); // ini adalah if else yang singkat
+        }
+
+        [HttpPost]
+        public IActionResult Ubah(Blog data)
+        {
+            if (ModelState.IsValid)
+            {
+                _service.UbahBlog(data);
+                return RedirectToAction("Index");
+            }
+            return View(data); // ini kondisi else
+        }
+
+        public IActionResult Details(string id)
+        {
+            var data = _service.TampilBlogById(id);
+            return View(data);
         }
     }
 }

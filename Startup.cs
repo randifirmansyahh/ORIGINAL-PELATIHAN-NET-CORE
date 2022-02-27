@@ -1,4 +1,6 @@
 using go_blogs.Data; // ini
+using go_blogs.Repositories;
+using go_blogs.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +38,12 @@ namespace go_blogs
                     options.LoginPath = "/Akun/Masuk";
                 }
              );
+
+            // repo
+            services.AddScoped<IRepository, Repository>();
+
+            // service
+            services.AddScoped<IService, Service>();
 
             services.AddControllersWithViews();
         }
