@@ -90,7 +90,10 @@ namespace go_blogs.Controllers
 
                     if(cariusername.Roles.Id == "1")
                     {
-                        return RedirectToAction(controllerName: "Blog", actionName: "Index");
+                        return Redirect("/Admin/Home");
+                    }else if(cariusername.Roles.Id == "2")
+                    {
+                        return Redirect("/User/Home");
                     }
                     
                     return RedirectToAction(controllerName: "Home", actionName: "Privacy");

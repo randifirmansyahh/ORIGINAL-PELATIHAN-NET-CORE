@@ -1,0 +1,35 @@
+﻿@model BlogDashBoard
+
+<h1>Data User</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Username
+            </th>
+            <th>
+                Password
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.user)
+        {
+            <tr>
+                <td>
+                    @item.Username
+                </td>
+                <td>
+                    @item.Password
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Username">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Username">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Username">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
