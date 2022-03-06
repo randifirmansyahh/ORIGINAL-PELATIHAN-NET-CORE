@@ -35,6 +35,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Akun" asp-action="Daftar">Daftar</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Admin/Home">Area admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/User/Home">Area User</a>
+                        </li>
                     </ul>
                 </div>
                 <div>
@@ -44,7 +50,7 @@
                         {
                             <b>@User.GetUsername()</b>
 
-                            <a href="@Url.Action("Logout","Akun")"
+                            <a href="/Akun/Logout"
                                style="color:red"
                                onclick="if (!confirm('Yakin untuk keluar')) { return false;}">
                                 Keluar

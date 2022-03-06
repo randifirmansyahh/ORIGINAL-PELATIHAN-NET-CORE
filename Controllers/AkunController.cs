@@ -78,7 +78,7 @@ namespace go_blogs.Controllers
                     var daftar = new List<Claim>
                     {
                         new Claim("Username", cariusername.Username),
-                        new Claim("Role", cariusername.Roles.Id)
+                        new Claim("Role", cariusername.Roles.Name)
                     };
 
                     // proses daftar auth

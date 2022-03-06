@@ -38,6 +38,9 @@ namespace go_blogs.Controllers
             return View();
         }
 
+        // ini arrow function
+        public IActionResult Dilarang() => View();
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

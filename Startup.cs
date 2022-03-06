@@ -36,6 +36,7 @@ namespace go_blogs
                 .AddCookie("CookieAuth", options =>
                 {
                     options.LoginPath = "/Akun/Masuk";
+                    options.AccessDeniedPath = "/Home/Dilarang";
                 }
              );
 
