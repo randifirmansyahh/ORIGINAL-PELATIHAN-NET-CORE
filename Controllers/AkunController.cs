@@ -33,6 +33,8 @@ namespace go_blogs.Controllers
         [HttpPost]
         public IActionResult Daftar(User datanya)
         {
+            if (!ModelState.IsValid) return View(datanya);
+
             int OTP = BantuanUmum.BuatOTP(); // menggunakan static, jadi gausah di new
 
             // fungsi kirim email bisa di panggil di controller mana saja
@@ -55,6 +57,8 @@ namespace go_blogs.Controllers
         [HttpPost]
         public async Task<IActionResult> Masuk(User datanya)
         {
+            if (!ModelState.IsValid) return View(datanya);
+
             var tampungan = _service.TampilUserByUsername(datanya.Username);
 
             if (tampungan == null) // cek username
