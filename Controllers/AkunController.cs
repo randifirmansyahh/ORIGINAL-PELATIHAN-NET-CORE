@@ -31,7 +31,7 @@ namespace go_blogs.Controllers
         }
 
         [HttpPost]
-        public IActionResult Daftar(User datanya)
+        public IActionResult Daftar(UserDaftar datanya)
         {
             if (!ModelState.IsValid) return View(datanya);
 
@@ -42,7 +42,9 @@ namespace go_blogs.Controllers
 
             datanya.Roles = _service.TampilRolesById("2"); // ngisi roles
 
-            _service.BuatUser(datanya); // add user
+            User hasil = BantuanUmum.ConvertJadiModelUser(datanya.Username, datanya.Password, datanya.Name, datanya.Email, datanya.Roles);
+
+            _service.BuatUser(hasil); // add user
 
             return RedirectToAction("Masuk");
             //return RedirectToAction(controllerName: "Akun", actionName: "Masuk"); // cara kedua

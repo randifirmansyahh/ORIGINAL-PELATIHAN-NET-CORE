@@ -1,4 +1,5 @@
-﻿using System;
+﻿using go_blogs.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -26,6 +27,18 @@ namespace go_blogs.Helper
             {
                 new Claim("Username", Username),
                 new Claim("Role", Role) // isi harus sesuai sama [Authorize(Roles="isinya")]
+            };
+        }
+
+        public static User ConvertJadiModelUser(string username, string password, string nama, string email, Roles role)
+        {
+            return new User
+            {
+                Username = username,
+                Password = password,
+                Name = nama,
+                Email = email,
+                Roles = role
             };
         }
     }
