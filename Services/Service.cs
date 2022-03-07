@@ -19,7 +19,7 @@ namespace go_blogs.Services
 
         public bool BuatBlog(Blog datanya, string username)
         {
-            datanya.Id = BuatPrimary.buatPrimary();
+            datanya.Id = BantuanUmum.BuatPrimary();
             datanya.CreateDate = DateTime.Now;
             datanya.User = _repo.CariUserByUsernameAsync(username).Result;
 

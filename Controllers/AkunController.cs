@@ -33,7 +33,7 @@ namespace go_blogs.Controllers
         [HttpPost]
         public IActionResult Daftar(User datanya)
         {
-            int OTP = BanyakBantuan.BuatOTP(); // menggunakan static, jadi gausah di new
+            int OTP = BantuanUmum.BuatOTP(); // menggunakan static, jadi gausah di new
 
             // fungsi kirim email bisa di panggil di controller mana saja
             _email.KirimEmail(datanya.Email, "Konfirmasi daftar", "<h1 style='color:red'>ini </h1>" + OTP); // bisa pake html atau tidak
