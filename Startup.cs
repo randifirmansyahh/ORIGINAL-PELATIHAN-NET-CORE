@@ -1,4 +1,5 @@
 using go_blogs.Data; // ini
+using go_blogs.Models;
 using go_blogs.Repositories;
 using go_blogs.Services;
 using Microsoft.AspNetCore.Builder;
@@ -45,6 +46,12 @@ namespace go_blogs
 
             // service
             services.AddScoped<IService, Service>();
+
+            // daftarkan emailService
+            services.AddTransient<EmailService>();
+
+            //ambil data dari appsetting.json
+            services.Configure<Email>(Configuration.GetSection("AturEmail"));
 
             services.AddControllersWithViews();
         }
