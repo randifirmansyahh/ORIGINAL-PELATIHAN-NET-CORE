@@ -19,9 +19,9 @@ namespace go_blogs.Controllers
         private readonly IService _service;
         private readonly EmailService _email;
 
-        public AkunController(IService context, EmailService e)
+        public AkunController(IService s, EmailService e)
         {
-            _service = context;
+            _service = s;
             _email = e;
         }
 
@@ -71,12 +71,8 @@ namespace go_blogs.Controllers
                 return View(datanya);
             }
 
-            // proses tampungan data
-            var daftar = new List<Claim>
-            {
-                new Claim("Username", tampungan.Username),
-                new Claim("Role", tampungan.Roles.Name) // isi harus sesuai sama [Authorize(Roles="isinya")]
-            };
+            // proses buat klaim
+            var daftar = BantuanUmum.BuatKlaim(tampungan.Username, tampungan.Roles.Name);
 
             // proses daftar auth atau cookie pada browser
             await HttpContext.SignInAsync(
