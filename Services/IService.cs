@@ -17,5 +17,12 @@ namespace go_blogs.Services
 
         // User
         List<User> TampilSemuaUser();
+        User TampilUserByUsername(string usernamenya);
+        User TampilUserByUsernameDanPassword(string usernamenya, string passwordnya);
+        bool BuatUser(User datanya);
+
+        // Roles
+        List<Roles> TampilSemuaRoles();
+        Roles TampilRolesById(string idnya);
     }
 }

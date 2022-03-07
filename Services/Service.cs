@@ -21,7 +21,7 @@ namespace go_blogs.Services
         {
             datanya.Id = BantuanUmum.BuatPrimary();
             datanya.CreateDate = DateTime.Now;
-            datanya.User = _repo.CariUserByUsernameAsync(username).Result;
+            datanya.User = _repo.TampilUserByUsernameAsync(username).Result;
 
             return _repo.BuatBlogAsync(datanya).Result;
         }
@@ -49,9 +49,37 @@ namespace go_blogs.Services
             return true;
         }
 
+
+        // USER
         public List<User> TampilSemuaUser()
         {
             return _repo.TampilSemuaUserAsync().Result;
+        }
+
+        public User TampilUserByUsername(string usernamenya)
+        {
+            return _repo.TampilUserByUsernameAsync(usernamenya).Result;
+        }
+
+        public User TampilUserByUsernameDanPassword(string usernamenya, string passwordnya)
+        {
+            return _repo.TampilUserByUsernameDanPasswordAsync(usernamenya, passwordnya).Result;
+        }
+
+        public bool BuatUser(User datanya)
+        {
+            return _repo.BuatUserAsync(datanya).Result;
+        }
+
+        // ROLES
+        public List<Roles> TampilSemuaRoles()
+        {
+            return _repo.TampilSemuaRolesAsync().Result;
+        }
+        
+        public Roles TampilRolesById(string idnya)
+        {
+            return _repo.TampilRolesByIdAsync(idnya).Result;
         }
     }
 }
