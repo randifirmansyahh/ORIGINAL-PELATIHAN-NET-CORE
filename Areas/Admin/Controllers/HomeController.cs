@@ -2,6 +2,7 @@
 using go_blogs.Models;
 using go_blogs.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -36,11 +37,11 @@ namespace go_blogs.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Blog parameter)
+        public IActionResult Create(Blog parameter, IFormFile Image)
         {
             if (ModelState.IsValid)
             {
-                _service.BuatBlog(parameter, User.GetUsername()); // dari helper, tanpa tampungan
+                _service.BuatBlog(parameter, User.GetUsername(), Image); // dari helper, tanpa tampungan
                 return RedirectToAction("Index");
             }
             return View(parameter); // ini kondisi else

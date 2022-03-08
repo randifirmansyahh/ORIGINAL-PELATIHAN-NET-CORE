@@ -5,6 +5,7 @@
         <h3>@Model.Content</h3>
         <h3>@Model.CreateDate</h3>
         <h3>@Model.Status</h3>
+        <img src="@Model.Image" alt="Alternate Text" />
 
         <a asp-action="Ubah" asp-route-id="@Model.Id">Edit</a> |
         <a asp-action="Hapus" asp-route-id="@Model.Id">Delete</a>

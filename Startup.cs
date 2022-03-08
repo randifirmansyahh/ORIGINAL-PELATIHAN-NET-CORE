@@ -49,6 +49,8 @@ namespace go_blogs
 
             // daftarkan emailService
             services.AddTransient<EmailService>();
+            // daftar fileservice
+            services.AddTransient<FileService>();
 
             //ambil data dari appsetting.json
             services.Configure<Email>(Configuration.GetSection("AturEmail"));

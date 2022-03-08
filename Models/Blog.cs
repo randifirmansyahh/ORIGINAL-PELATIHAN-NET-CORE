@@ -12,7 +12,7 @@ namespace go_blogs.Models
         [Key]
         public string Id { get; set; }
         
-        [Required]
+        [Required(ErrorMessage ="Ini harus diisi loh")]
         [DisplayName("Judul")]
         public string Title { get; set; }
 
@@ -23,6 +23,7 @@ namespace go_blogs.Models
         [DisplayName("Tanggal Pembuatan")]
         public DateTime CreateDate { get; set; }
 
+        public string Image { get; set; }
         public bool Status { get; set; }
         public User User { get; set; }
     }

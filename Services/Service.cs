@@ -1,6 +1,7 @@
 ﻿using go_blogs.Helper;
 using go_blogs.Models;
 using go_blogs.Repositories;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +12,20 @@ namespace go_blogs.Services
     public class Service : IService
     {
         private readonly IRepository _repo;
+        private readonly FileService _file;
 
-        public Service(IRepository r)
+        public Service(IRepository r, FileService f)
         {
             _repo = r;
+            _file = f;
         }
 
-        public bool BuatBlog(Blog datanya, string username)
+        public bool BuatBlog(Blog datanya, string username, IFormFile fotonya)
         {
             datanya.Id = BantuanUmum.BuatPrimary();
             datanya.CreateDate = DateTime.Now;
             datanya.User = _repo.TampilUserByUsernameAsync(username).Result;
+            datanya.Image = _file.SimpanFile(fotonya).Result;
 
             return _repo.BuatBlogAsync(datanya).Result;
         }
